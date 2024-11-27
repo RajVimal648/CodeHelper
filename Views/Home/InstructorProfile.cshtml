@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "InstructorProfile";
+    Layout = "~/Views/Shared/_GeneralLayoutPage1.cshtml";
+}
+
+<style>
+    .page-banner {
+        padding: 88px 0;
+        text-align: center;
+        background: url('../img/ban-bg.png') #1565C0;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-top: 80px;
+    }
+</style>
+
+<div class="page-banner instructor-bg-blk">
+    @{
+        if (ViewBag.showinstructorprofile != null)
+        {
+            foreach (var row in ViewBag.showinstructorprofile.Rows)
+            {
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-12">
+                            <div class="profile-info-blk">
+                                <a href="javascript:;" class="profile-info-img">
+                                    <img src="~/Content/pic/@row["Profile_pic"]" class="img-fluid">
+                                </a>
+                                <h4><a href="javascript:;">@row[1]</a><span>Expert</span></h4>
+                                <p>Instructor</p>
+                                <ul class="list-unstyled inline-inline profile-info-social">
+                                    <li class="list-inline-item">
+                                        <a href="javascript:;">
+                                            <i class="fa-brands fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="javascript:;">
+                                            <i class="fa-brands fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="javascript:;">
+                                            <i class="fa-brands fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="javascript:;">
+                                            <i class="fa-brands fa-linkedin"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>
+
+
+<section class="page-content course-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+
+                <div class="card overview-sec">
+                    @{
+                        if (ViewBag.showinstructorprofile != null)
+                        {
+                            foreach (var row in ViewBag.showinstructorprofile.Rows)
+                            {
+                                <div class="card-body">
+                                    <h5 class="subs-title">About Me</h5>
+                                    <p>@row[6]</p>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+
+
+
+
+            </div>
+            <div class="col-lg-4">
+
+                <div class="card overview-sec">
+                    <div class="card-body">
+                        <h5 class="subs-title">Contact Details</h5>
+                        @{
+                            if (ViewBag.showinstructorprofile != null)
+                            {
+                                foreach (var row in ViewBag.showinstructorprofile.Rows)
+                                {
+                                    <div class="contact-info-list">
+                                        <div class="edu-wrap">
+                                            <div class="edu-name">
+                                                <span><img src="~/Content/assets/img/instructor/email-icon.png" alt="Address"></span>
+                                            </div>
+                                            <div class="edu-detail">
+                                                <h6>Email</h6>
+                                                <p><a href="javascript:;"><span class="__cf_email__" data-cfemail="d5bfb0bbbbaca2bcb9a6babb95b0adb4b8a5b9b0fbb6bab8">@row[2]</span></a></p>
+                                            </div>
+                                        </div>
+                                        <div class="edu-wrap">
+                                            <div class="edu-name">
+                                                <span><img src="~/Content/assets/img/instructor/phone-icon.png" alt="Address"></span>
+                                            </div>
+                                            <div class="edu-detail">
+                                                <h6>Phone</h6>
+                                                <p> <a href="javascript:;">@row[3]</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

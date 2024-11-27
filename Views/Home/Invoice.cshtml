@@ -1,0 +1,294 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "Invoice";
+}
+
+<style>
+    .con {
+        margin-top: 50px;
+    }
+    .hidden{
+        display:none;
+    }
+</style>
+<div class="page-content">
+    <div class="container con">
+        <div class="row justify-content-center">
+            @{
+
+
+                if (Model!= null)
+                {
+                    if (Model.Rows.Count > 0)
+                    {
+                        foreach (System.Data.DataRow row in Model.Rows)
+                        {
+                        <div class="col-xl-9 col-md-8">
+                            <div class="settings-widget profile-details">
+                                <div class="settings-menu invoice-list-blk p-0 ">
+                                    <div class="card pro-post border-0 mb-0">
+                                        <div class="card-body">
+                                            <div class="invoice-item">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="invoice-logo">
+                                                            <img src="~/Content/assets/img/logo/logo.png" alt="logo" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="invoice-details">
+                                                            <strong>Issued:</strong> @DateTime.Now
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="invoice-item">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="invoice-info">
+                                                            <strong class="customer-text">Invoice From</strong>
+                                                            <strong class="customer-text">Techpile Technology PVT LTD.</strong>
+
+                                                            Plot No-43, Behind H.P Petrol Pump,<br>
+                                                            Tedhi Pulia Ring Rd, Sector 5,<br>
+                                                            Vikas Nagar, Lucknow <br>
+                                                            Uttar Pradesh 226022
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="invoice-info invoice-info2">
+                                                            <strong class="customer-text">Invoice To</strong>
+                                                            <strong class="customer-text">@row["name"]</strong>
+                                                            <p class="invoice-details">
+
+                                                                @row["email"]<br>
+                                                                @row["college"]<br>
+                                                                @row["Course"]<br>
+                                                                @row["year"]
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="invoice-item invoice-table-wrap">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="invoice-table table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Course</th>
+                                                                        <th>Details</th>
+                                                                        <th class="text-end">ExpiryDate</th>
+                                                                        <th class="text-center">Final Fee</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>@row["Course_title"] </td>
+                                                                        <td>@Html.Raw(row["course_details"])</td>
+                                                                        <td class="text-end">
+                                                                            @{DateTime edate;}                                                                  @if (Model.Rows[0]["expirydate"] != DBNull.Value)
+                                                                            {
+                                                                                edate = Convert.ToDateTime(Model.Rows[0]["expirydate"]);
+                                                                                <del>@row["course_duration"]</del>
+                                                                                @Model.Rows[0]["expirydate"] }
+                                                                            else
+                                                                            {
+                                                                                edate = Convert.ToDateTime(Model.Rows[0]["course_duration"]); @row["course_duration"]
+                                                                            }
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            @{int fee = 0;}                                                            @if (Model.Rows[0]["discountfee"] != DBNull.Value)
+                                                                            {
+                                                                                fee = Convert.ToInt32(Model.Rows[0]["discountfee"]);<del>₹@Model.Rows[0]["course_fee"]</del>
+                                                                                <span>Your special Fee : ₹@Model.Rows[0]["discountFee"]</span>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                fee = Convert.ToInt32(Model.Rows[0]["course_fee"]); @Model.Rows[0]["course_fee"]
+                                                                            }
+                                                                            @*<div id="div_fee" style="display:none">@fee</div>
+                            <div id="div_email" style="display:none">@User.Identity.Name</div>
+                            <div id="div_date" style="display:none">@edate</div>*@
+
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td class="text-center"></td>
+                                                                        <td class="text-end">₹<span id="number-span">@row["discountfee"]</span></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        @*<div id="Showbtn"  class="col-sm-2"><a href="/home/EnrollStudent" class="btn p-2 btn-wish w-100">Enroll Now</a></div>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        }
+
+                    }
+                }
+
+            }
+            
+            <div id="another-div">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-md-5 d-flex justify-content-center">
+                        <div class=" d-flex">
+                            <div class="get-certified d-flex align-items-center">
+
+                                <p>
+                                    <b style="font-size:18px; color:#ff6600;">Note : </b>Contact To Admin to Enroll This Course<br />
+                                    This Time You need Admin help For Enrollment.<br />
+                                    Because It's Not Full Live This Time<br />
+                                    Contact No. <a href="tel:7007237006">7007237006,</a>&nbsp;&nbsp;<a href="tel:9140444301">9140444301</a>
+                                </p>
+                                <div class="get-certified d-flex align-items-center">
+                                    <a target="_blank" href="http://wa.me/+917007237006? text=Hi" class="btn p-2 btn-wish w-100"><i class="fa-brands fa-whatsapp fa-beat-fade"></i> Whatsapp Now </a>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 d-flex justify-content-start">
+                        <div class=" d-flex">
+                            <div class="get-certified d-flex align-items-center">
+
+                                <p>
+                                    Request for special discount to Admin :
+                                </p>
+                                <div class="get-certified d-flex align-items-center">
+
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn p-2 btn-wish w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fa-regular fa-paper-plane fa-beat-fade"></i> Send request
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <form method="post">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Send Request</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @{
+                                                            if (ViewBag.data != null)
+                                                            {
+                                                                foreach (var rowa in ViewBag.data.Rows)
+                                                                {
+
+
+                                                                    <input type="number" value="@rowa["course"]" name="id" readonly class="form-control" /><br />
+                                                                }
+                                                            }
+                                                        }
+                                                        @if (Model != null)
+                                                        {
+                                                            if (Model.Rows.Count > 0)
+                                                            {
+                                                                foreach (System.Data.DataRow row in Model.Rows)
+                                                                {
+                                                                    <input type="text" value="@row["email"] " name="email" readonly class="form-control" /><br />
+                                                                    <input type="datetime" value="@DateTime.Now " name="date" readonly class="form-control" /><br />
+
+                                                                    <input type="text" class="form-control" name="msg" required placeholder="Drop Your Request Message" />
+                                                                }
+                                                            }
+                                                        }
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <input type="submit" class="btn p-2 btn-wish w-100" value="Send Request" />
+                                                        @*<button type="button" class="btn btn-primary">Send Request</button>*@
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+            </div>
+            
+        </div>
+
+
+    </div>
+</div>
+
+<script src="~/Content/assets/js/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#btn_enroll").click(function () {
+                                                            var fee=$(this).attr("data-id");
+                                                            var email=$(this).attr("data-user");
+                                                            var edate=$(this).attr("data-date");
+                                                            var courseid =@Request.QueryString["courseid"];
+                                                            if (fee != "" && email != "" && edate != "" && courseid != "") {
+                $.ajax({
+                                                                url: '/home/EnrollStudent',
+                    type: 'POST',
+                    data: { 'courseid': courseid, 'email': email, 'expirydate': edate, 'fee': fee },
+                    success: function (res) {
+                                                                        alert(res)
+                    },
+                    error: function () {
+                                                                        alert('Error in ajax')
+                    }
+                                                                })
+            }
+                                                            else {
+                                                                alert("Error occured please try again");
+                                                            }
+                                                        })
+    })
+   @* function EnrollStudent() {
+        var courseid = @Request.QueryString["courseid"];
+        var fee = document.getElementById("div_fee").innerText;
+        var emailid = document.getElementById("div_email").innerText;
+        var edate = document.getElementById("div_date").innerText;
+        debugger
+     //   alert(courseid + "   " + userid + "     " + fee);
+    }*@
+
+</script>
+@*<script>
+    var numberSpan = document.getElementById('number-span');
+    var anotherDiv = document.getElementById('another-div');
+    var show = document.getElementById('Showbtn');
+
+    // Check if the content of the span is zero
+    if (parseInt(numberSpan.textContent) <= 0) {
+        anotherDiv.style.display = 'none';
+        show.style.display = 'block';
+    }
+
+   
+</script>*@
+

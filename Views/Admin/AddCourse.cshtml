@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "AddCourse";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+
+<style>
+
+    .box {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        padding-top: 10px;
+    }
+
+    input:hover {
+        background-color: lightgrey;
+    }
+</style>
+
+<section class="page-content course-sec">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card">
+
+                    <div class="widget-set">
+
+                        <div class="widget-content multistep-form">
+
+                            <div class="add-instructor-form">
+                                <div class="row ">
+                                    <div class="col-sm-12 p-5 ">
+                                        <form id="cform" method="post" enctype="multipart/form-data">
+                                            <div class="add-instructor-inner-header ">
+                                                <center><h4 class="fw-bold" style="color:orangered">Add COURSE</h4></center>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="add-instructor-label">Course Title</label>
+                                                        <input type="text" class="form-control" placeholder="Course Title.." name="title">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="add-instructor-label">Course Thumbnail(369*271)</label>
+                                                        <input type="file" accept="image/*" class="form-control" name="thumbnail">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="add-instructor-label">Select Course Category</label>
+                                                        <select class="form-control" name="category">
+                                                            <option selected disabled>Select Category</option>
+                                                            @foreach (var row in Model.Tables[0].Rows)
+                                                            {
+                                                                <option value="@row[0]">@row[1]</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="add-instructor-label">Select Course Instructor</label>
+                                                        <select class="form-control" name="instructor">
+                                                            <option selected disabled>Select Instructor</option>
+                                                            @foreach (var row in Model.Tables[1].Rows)
+                                                            {
+                                                                <option value="@row[0]">@row[1]</option>
+                                                            }
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="add-instructor-label">Course Fee</label>
+                                                        <input type="number" class="form-control" placeholder="Course Fee.." name="fee">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="add-instructor-label">Course Final Fee</label>
+                                                        <input type="number" placeholder="Enter Discounted Fee.." class="form-control" name="finalfee">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="add-instructor-label">Course Details</label>
+                                                    <textarea placeholder="Enter Description.." class="form-control-lg" name="cdetail" id="desc"></textarea>
+                                                    <script>
+                                                        ClassicEditor.create(document.getElementById("desc"))
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="add-instructor-label">Course Duration</label>
+                                                    <input type="date" name="duration" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="widget-btn">
+
+                                                <input type="submit" class="btn btn-black ms-5" value="ADD" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-7">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

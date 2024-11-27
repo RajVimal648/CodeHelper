@@ -1,0 +1,308 @@
+﻿
+@{
+    ViewBag.Title = "editStudent";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<style>
+
+    .box {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        padding-top: 10px;
+    }
+
+    input:hover {
+        background-color: lightgrey;
+    }
+</style>
+<body>
+    @{
+        if (ViewBag.student != null)
+        {
+            foreach (var data in ViewBag.student.Rows)
+            {
+                <section class="page-content course-sec">
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="card">
+
+                                    <div class="widget-set">
+
+                                        <div class="widget-content multistep-form">
+
+                                            <div class="add-instructor-form">
+                                                <div class="row ">
+                                                    <div class="col-sm-10 px-5 ">
+                                                        <form onsubmit="return check()" id="cform" method="post" enctype="multipart/form-data">
+                                                            <center>
+                                                                <div class="add-instructor-inner-header p-3">
+                                                                    <h4 class="fw-bold dt-center mt-3 me-3 mb-3" style="color:orangered">REGISTRATION</h4>
+                                                                </div>
+                                                            </center>
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="add-instructor-label">NAME</label>
+                                                                        <input type="text" id="name" class="form-control" value="@data["name"]" placeholder="Name" name="Rname">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="add-instructor-label">PROFILE PICTURE</label>
+                                                                        <input type="file" accept="image/*" value=""  class="form-control" name="Rpic">
+                                                                    </div>
+                                                                    <img src="~/Content/studentpic/@data["profile_pic"]" style="height:45px" />
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="add-instructor-label">  EMAILID </label>
+                                                                        <input type="email" id="email" class="form-control" value="@data["email"]"  placeholder="Email" name="REmail">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="add-instructor-label">PASSWORD</label>
+                                                                        <input type="password" class="form-control" value="@data["password"]"  placeholder="......" name="Rpassword">
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="add-instructor-label">  COLLEGE </label>
+                                                                        <input type="text" class="form-control" value="@data["college"]"  placeholder="College Name" name="RCollege">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="add-instructor-label">COURSE</label>
+                                                                        <select class="form-control" name="RCOURSE">
+                                                                            <option selected disabled>Select Category</option>
+                                                                            @if (@data["Course"].ToString().Equals("Diploma"))
+                                                                            {
+                                                                                <option selected>Diploma</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option>Diploma</option>
+                                                                            }
+                                                                            @if (@data["Course"].ToString().Equals("PHD"))
+                                                                            {
+                                                                                <option selected>PHD</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option>PHD</option>
+                                                                            }
+                                                                            @if (@data["Course"].ToString().Equals("B.tech"))
+                                                                            {
+                                                                                <option selected>B.tech</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option>B.tech</option>
+                                                                            }
+                                                                            @if (@data["Course"].ToString().Equals("M.tech"))
+                                                                            {
+                                                                                <option selected>M.tech</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option>M.tech</option>
+                                                                            }
+                                                                            @if (@data["Course"].ToString().Equals("PHD"))
+                                                                            {
+                                                                                <option selected>PHD</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option>PHD</option>
+                                                                            }
+                                                                            @if (@data["Course"].ToString().Equals("MBA"))
+                                                                            {
+                                                                                <option selected>MBA</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option>MBA</option>
+                                                                            }
+                                                                            @if (@data["Course"].ToString().Equals("M.COM"))
+                                                                            {
+                                                                                <option selected>M.COM</option>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option>M.COM</option>
+                                                                            }
+
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="add-instructor-label">MOBILE-NUMBER</label>
+                                                                        <input type="number" value="@data["mob"]"  id="mobno" minlength="10" maxlength="10" class="form-control" placeholder="Mobile...." name="rmobile">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label class="add-instructor-label">GENDER</label><br />
+
+                                                                        @{
+                                                                            if (@data["gender"].ToString().Equals("Male"))
+                                                                            {
+                                                                                @:Male <input type = "radio" checked name = "rgender" value = "Male" >
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                @:Male <input type = "radio"  name = "rgender" value = "Male" >
+                                                                            }
+
+
+                                                                            if (@data["gender"].ToString().Equals("Female"))
+                                                                            {
+                                                                                @:Female<input checked type="radio" name="rgender" value="Female">
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                @:Female<input  type="radio" name="rgender" value="Female">
+                                                                            }
+                                                                            }
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-6">
+                                                                <label class="add-instructor-label">YEAR</label>
+                                                                <select class="form-control" name="ryear">
+                                                                    <option selected disabled>Select Category</option>
+                                                                    @if (@data["year"].ToString().Equals("First"))
+                                                                    {
+                                                                        <option selected>First</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option>First</option>
+                                                                    }
+                                                                    @if (@data["year"].ToString().Equals("Second"))
+                                                                    {
+                                                                        <option selected>Second</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option>Second</option>
+                                                                    }
+
+                                                                    @if (@data["year"].ToString().Equals("Third"))
+                                                                    {
+                                                                        <option selected>Third</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option>Third</option>
+                                                                    }
+                                                                    @if (@data["year"].ToString().Equals("Fourth"))
+                                                                    {
+                                                                        <option selected>Fourth</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option>Fourth</option>
+                                                                    }
+                                                                    @if (@data["year"].ToString().Equals("Passed Out"))
+                                                                    {
+                                                                        <option selected>Passed Out</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option>Passed Out</option>
+                                                                    }
+                                                                    @if (@data["year"].ToString().Equals("Other"))
+                                                                    {
+                                                                        <option selected>Other</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option>Other</option>
+                                                                    }
+
+                                                                  
+                                                                </select>
+                                                            </div>
+
+
+
+                                                            <center>
+                                                                <input type="submit" onclick="check()" class="signin-head button mb-4 mt-3" value="Sign up" />
+                                                            </center>
+
+
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-sm-7">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            }
+        }
+    }
+</body>
+
+@*<script>
+    function check() {
+
+        var name = document.getElementById("name");
+        var nameRegex = /^[A-Za-z ]{3,}$/;
+        if (nameRegex.test(name) == false) {
+            name.style.border = "1px solid red"
+            name.focus()
+            return false
+        }
+
+        var emailRegex = /^([a-zA-Z0-9._%-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
+        var email = document.getElementById("email");
+        if (emailRegex.test(email) == false) {
+            email.style.border = "1px solid red"
+            email.focus()
+            return false
+        }
+        var mobnoregex = /^[6789]\d{9}$/;
+
+        var mobno = document.getElementById("mobno");
+        if (mobnoregex.test(mobno) == false) {
+            mobno.style.border = "1px solid red"
+            mobile.focus()
+            return false
+        }
+
+        var gender = document.getElementById("rgender");
+        if (gender.value.length <= 0) {
+            alert("Gender is required");
+            gender.focus();
+            return false;
+        }
+    }
+</script>*@

@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_GeneralLayoutPage1.cshtml";
+}
+<div class="page-content">
+    @if (Model != null)
+    {
+        if (Model.Rows.Count > 0)
+        {
+            foreach (System.Data.DataRow row in Model.Rows)
+            {
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-9 mx-auto col-md-8">
+                            <div class="settings-widget profile-details">
+                                <div class="settings-menu p-0">
+                                    <div class="profile-heading">
+                                        <h3>Profile Details</h3>
+                                        <p>You have full control to manage your own account setting.</p>
+                                    </div>
+                                    <div class="course-group mb-0 d-flex">
+                                        <div class="course-group-img d-flex align-items-center">
+                                           <a href="student-profile.html"><img src="~/Content/Studentpic/@row["profile_pic"]" height="70" width="100" class="img-fluid"></a>
+                                            <div class="course-name">
+                                                <h4><a href="student-profile.html">@row["name"]</a></h4>
+                                                <p>@row["email"]</p>
+                                            </div>
+                                        </div>
+                                        <div class="profile-share d-flex align-items-center justify-content-center">
+                                            <a href="javascript:;" class="btn btn-success">Update</a>
+                                            <a href="javascript:;" class="btn btn-danger">Delete</a>
+                                        </div>
+                                    </div>
+                                    <div class="checkout-form personal-address add-course-info ">
+                                        <div class="personal-info-head">
+                                            <h4>Personal Details</h4>
+                                            <p>Edit your personal information and address.</p>
+                                        </div>
+                                        <form method="post">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="form-control-label">Name</label>
+                                                        <input type="text" class="form-control" name="Rname" value="@row["name"]">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="form-control-label">Course</label>
+                                                        <input type="text" class="form-control" name="RCOURSE" placeholder="Enter your last Name" value="@row["course"]">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="form-control-label">Phone</label>
+                                                        <input type="number" class="form-control" name="rmobile" value="@row["mob"]" placeholder="Enter your Phone">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="form-control-label">College</label>
+                                                        <input type="text" class="form-control" name="RCollege" value="@row["college"]" placeholder="Enter your Email">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="form-control-label">Gender</label>
+                                                        <input type="text" class="form-control" name="rgender" value="@row["gender"]" placeholder="Birth of Date">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Year</label>
+                                                        <input type="text" class="form-control" name="ryear" placeholder="Address" value="@row["year"]">
+                                                    </div>
+                                                </div>
+                                                <div class="update-profile">
+                                                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+            </div>
+

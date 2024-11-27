@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "REGISTRATION";
+    Layout = "~/Views/Shared/_GeneralLayoutPage1.cshtml";
+}
+
+<style>
+    .page-content {
+        padding: 50px 0 30px;
+        margin-top: 70px !important;
+    }
+
+    .box {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        padding-top: 10px;
+    }
+
+    input:hover {
+        background-color: lightgrey;
+    }
+</style>
+<body>
+
+    <section class="page-content course-sec">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="card">
+
+                        <div class="widget-set">
+
+                            <div class="widget-content multistep-form">
+
+                                <div class="add-instructor-form">
+                                    <div class="row ">
+                                        <div class="col-sm-10 px-5 ">
+                                            <form onsubmit="return check()" id="cform" method="post" enctype="multipart/form-data">
+                                                <center>
+                                                    <div class="add-instructor-inner-header p-3">
+                                                        <h4 class="fw-bold dt-center mt-3 me-3 mb-3" style="color:orangered">REGISTRATION</h4>
+                                                    </div>
+                                                </center>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">NAME</label>
+                                                            <input type="text" id="name" class="form-control" placeholder="Name" name="Rname">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">GENDER</label><br />
+                                                            Male<input type="radio" name="rgender" value="Male">
+                                                            Female<input type="radio" name="rgender" value="Female">
+                                                            Other<input type="radio" name="rgender" value="Other">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">MOBILE-NUMBER</label>
+                                                            <input type="number" id="mobno" minlength="10" maxlength="10" class="form-control" placeholder="Mobile...." name="rmobile">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">  EMAILID </label>
+                                                            <input type="email" id="email" class="form-control" placeholder="Email" name="REmail">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">PASSWORD</label>
+                                                            <input type="password" class="form-control" placeholder="......" name="Rpassword">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">  COLLEGE </label>
+                                                            <input type="text" class="form-control" placeholder="......" name="Rcollege">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">COURSE</label>
+                                                            <select class="form-control" name="Rcourse">
+                                                                <option selected disabled>Select Course</option>
+                                                                <option>Diploma(CS)</option>
+                                                                <option>Diploma(IT)</option>
+                                                                <option>Diploma(EC)</option>
+                                                                <option>Diploma(EE)</option>
+                                                                <option>Diploma(ME)</option>
+                                                                <option>Diploma(CE)</option>
+                                                                <option>B.Tech(CS)</option>
+                                                                <option>B.Tech(IT)</option>
+                                                                <option>BCA</option>
+                                                                <option>PGDCA</option>
+                                                                <option>MCA</option>
+                                                                <option>Other..</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label class="add-instructor-label">YEAR</label>
+                                                        <select class="form-control" name="ryear">
+                                                            <option selected disabled>Select Year</option>
+                                                            <option>First</option>
+                                                            <option>Second</option>
+                                                            <option>Third</option>
+                                                            <option>Fourth</option>
+                                                            <option>Passed Out</option>
+                                                            <option>Other</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">PROFILE PICTURE</label>
+                                                            <input type="file" id="profile-picture" accept="image/*" class="form-control" name="Rpic">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <center>
+                                                    <input type="submit" class="signin-head button mb-4 mt-3" value="Sign up" />
+                                                </center>
+                                            </form>
+                                        </div>
+                                        <div class="col-sm-7">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function check() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var profilePicture = document.getElementById('profile-picture').files.length;
+            var mobno = document.getElementById('mobno').value;
+            var college = document.getElementsByName('Rcollege')[0].value;
+            var course = document.getElementsByName('Rcourse')[0].value;
+            var gender = document.querySelector('input[name="rgender"]:checked');
+            var year = document.getElementsByName('ryear')[0].value;
+
+            if (!name) {
+                alert("Name is required");
+                return false;
+            }
+            if (profilePicture === 0) {
+                alert("Profile picture is required");
+                return false;
+            }
+            if (!email) {
+                alert("Email is required");
+                return false;
+            }
+            if (!mobno) {
+                alert("Mobile number is required");
+                return false;
+            }
+            if (!college || college === "Select College") {
+                alert("College is required");
+                return false;
+            }
+            if (!course || course === "Select Category") {
+                alert("Course is required");
+                return false;
+            }
+            if (!gender) {
+                alert("Gender is required");
+                return false;
+            }
+            if (!year || year === "Select Category") {
+                alert("Year is required");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>

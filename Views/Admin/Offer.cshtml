@@ -1,0 +1,133 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "Offer";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+<section class="page-content course-sec">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+
+                    <div class="widget-set">
+
+                        <div class="widget-content multistep-form">
+                            <fieldset id="first">
+                                <div class="add-course-info">
+                                    <div class="add-course-inner-header">
+                                        <h4 class="text-center">OFFER MANEGEMENT</h4>
+                                    </div>
+                                    <div class="add-course-form">
+                                        <form method="post">
+                                            <div class="form-group">
+                                                <label class="add-course-label">Enter Your Email: </label>
+                                                <input type="email" class="form-control" placeholder="Enter Email" id="email" name="oemail" onblur="Blur(this)">
+                                                <div id="data"></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="add-course-label"> Select Courses </label>
+                                                <select class="form-control select" onchange="selectcourse(this)" name="oselect">
+                                                    <option disabled selected>--Select Course--</option>
+
+                                                    @if (Model != null)
+                                                    {
+                                                        if (Model.Rows.Count > 0)
+                                                        {
+                                                            foreach (System.Data.DataRow row in Model.Rows)
+                                                            {
+                                                                <option value=@row["id_course"]>@row["Course_Title"]</option>
+                                                            }
+                                                        }
+                                                    }
+
+                                                    else
+                                                    {
+                                                        <option> Course Not Added</option>
+
+
+                                                    }
+
+                                                </select>
+                                                <p id="div"></p>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="add-course-label">Discount Amount</label>
+                                                <input type="number" name="odiscount" class="form-control" placeholder=" Discount Amount">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="add-course-label">Offer  Expiry Date</label>
+                                                <input type="date" name="odate" class="form-control" >
+                                            </div>
+                                            <input type="submit" class="signin-head" value="ADD NOW">
+                                        </form>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Content/assets/js/jquery-3.6.0.min.js"></script>
+<script src="~/Content/assets/js/date.format.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<script>
+    function Blur(x) {
+        var email = x.value
+        //alert(email)
+        $.ajax({
+            url: '/admin/getoneuser',
+            type: 'post',
+            data: {'email':email},
+            success: function (res) {
+                $("#data").empty()
+               // debugger
+                for (var d of res)
+                    $("#data").append(`
+                    <h5>${d.Rname}</h5>
+                    <h5>${d.RCollege}</h5>
+                    <h5>${d.rmobile}</h5>
+                    <h5>${d.ryear}</h5>
+                    `)
+
+
+            },
+            error: function () {
+                alert("Error")
+            }
+        })
+        
+    }
+    function selectcourse(x) {
+        var id = x.value
+         //alert(id)
+        $.ajax({
+            url: '/admin/showcourse',
+            type: 'get',
+            data: { 'id': id },
+            success: function (res) {
+                //var date = res.duration;
+                //var nowdate = nowdate(parseInt(date.substr(6)));
+                //var result = "";
+                //result += nowdate.format("m/d/yy") + "";
+                //alert(result);
+               // debugger
+                $("#div").empty()
+                for (var i of res)
+                   
+                    $("#div").append(`<p>${i.duration}</p>
+                    <p>${i.finalfee}</p>
+            `)
+            },
+            error: function () {
+                alert("error ")
+            }
+        })
+    }
+</script>
+

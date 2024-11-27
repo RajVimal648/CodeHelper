@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "AdminLogin";
+    Layout = "~/Views/Shared/_GeneralLayoutPage1.cshtml";
+}
+<style>
+
+    .box {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        padding-top: 10px;
+    }
+
+    input:hover {
+        background-color: lightgrey;
+    }
+</style>
+<body>
+
+    <section class="page-content course-sec">
+        <div class="container my-5">
+
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+
+                    <div class="card">
+
+                        <div class="widget-set">
+
+                            <div class="widget-content multistep-form">
+
+                                <div class="add-instructor-form">
+                                    <div class="row ">
+                                        <div class="col-sm-8 mx-auto ">
+
+                                            <form id="cform" method="post" enctype="multipart/form-data">
+
+                                                <center>
+                                                    <div class="add-instructor-inner-header ms-5">
+                                                        <h4 class="fw-bold dt-center mt-2 me-3 mb-3" style="color: #ff602e">ADMIN LOGIN PAGE</h4>
+                                                    </div>
+                                                </center>
+                                                <div class="row">
+                                                    <div class="col-sm-11 ms-4 me-4">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">Email</label>
+                                                            <input type="text" class="form-control" placeholder="Email..." name="email">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-11 ms-4 me-4">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">Password</label>
+                                                            <input type="password" placeholder="******" class="form-control" name="password">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <center>
+                                                    <input type="submit" class="signin-head mb-4" value="Login" />
+                                                </center>
+                                            </form>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="col-sm-7">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+

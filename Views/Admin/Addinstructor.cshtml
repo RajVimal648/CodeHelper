@@ -1,0 +1,107 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "Addinstructor";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+
+
+<style>
+
+
+
+    input:hover {
+        background-color: lightgrey;
+    }
+</style>
+
+<section class="page-content course-sec">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card">
+
+                    <div class="widget-set">
+                        <div class="widget-setcount">
+                            <ul id="progressbar">
+                                <li>
+                                    <a href="/admin/addCourseCategory">
+                                        <p><span></span> Add Category</p>
+                                    </a>
+                                </li>
+                                <li class="progress-active">
+                                    <a href="/admin/addInstructor">
+                                        <p><span></span> Add Instructor</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <p><span></span> Courses Media</p>
+                                </li>
+                                <li>
+                                    <p><span></span> Curriculum</p>
+                                </li>
+                                <li>
+                                    <p><span></span> Settings</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="widget-content multistep-form">
+
+                            <div class="add-instructor-form">
+                                <div class="row ">
+                                    <div class="col-sm-12  box">
+                                        <form id="cform" method="post" enctype="multipart/form-data">
+                                            <div class="add-instructor-inner-header ">
+                                                <center><h4 class="fw-bold" style="color:orangered">Add Instructor</h4></center>
+                                            </div>
+                                            <div class="form-group p-5">
+                                                <label class="add-instructor-label">Instructor Name</label>
+                                                <input type="text" class="form-control" placeholder="Name.." name="iname">
+                                                <label class="add-instructor-label">Instructor EmailID</label>
+                                                <input type="email" class="form-control" placeholder="Email.." name="iemail">
+                                                <label class="add-instructor-label">Password</label>
+                                                <input type="password" class="form-control" placeholder="*" name="ipassword">
+                                                <label class="add-instructor-label">Instructor Mobile No.</label>
+                                                <input type="number" class="form-control" placeholder="Mobile No.." name="imobno">
+
+                                                <label class="add-instructor-label"> Gender</label><br />
+                                                <input type="radio" value="Male" name="igender"> Male &nbsp; &nbsp; &nbsp; &nbsp;
+                                                <input type="radio" value="Female" name="igender"> Female &nbsp; &nbsp; &nbsp; &nbsp;
+                                                <input type="radio" value="Other" name="igender"> Other<br />
+                                                <label class="add-instructor-label">Profile Picture (Only .jpg/.jpeg)</label>
+                                                <input type="file" class="form-control" name="ipic">
+                                                <label class="add-instructor-label">Profile Summary</label>
+                                                <input type="text" class="form-control" placeholder="Summary.." name="isummary">
+                                                <label class="add-instructor-label">About Me</label>
+                                                <textarea class="form-control" placeholder="About Me.." name="iaboutme"></textarea>
+                                                <label class="add-instructor-label">Highest Qualification</label>
+                                                <select class="form-control" name="iquali">
+                                                    <option>--Select--</option>
+                                                    <option>B.Tech</option>
+                                                    <option>BCA</option>
+                                                    <option>MCA</option>
+                                                    <option>BA</option>
+                                                    <option>MA</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="widget-btn">
+                                                <input type="submit" class="btn btn-black ms-5" value="ADD" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-7">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

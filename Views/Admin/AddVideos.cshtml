@@ -1,0 +1,224 @@
+﻿@{
+    ViewBag.Title = "AddVideos";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+
+<style>
+
+    .box {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        padding-top: 10px;
+    }
+
+    input:hover {
+        background-color: lightgrey;
+    }
+</style>
+
+<section class="page-content course-sec">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card">
+
+                    <div class="widget-set">
+
+                        <div class="widget-content multistep-form">
+
+                            <div class="add-instructor-form">
+                                <div class="row ">
+                                    <div class="col-sm-10 ms-5 box">
+                                        <form id="cform" method="post" enctype="multipart/form-data">
+                                            <div class="add-instructor-inner-header ms-5">
+                                                <h4 class="fw-bold" style="color:orangered">Add VIDEO LECTURE</h4>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="add-instructor-label">Select Course</label>
+                                                        <select class="form-control" name="vcourse" id="course" onchange="SelectCourseVideo(this)">
+                                                            <option selected disabled>Select Course</option>
+                                                            @if (Model != null)
+                                                            {
+                                                                if (Model.Rows.Count > 0)
+                                                                {
+
+                                                                    foreach (System.Data.DataRow row in Model.Rows)
+                                                                    {
+                                                                        <option value="@row[0]">@row[1]</option>
+                                                                    }
+
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="add-instructor-label">Select Chapter</label>
+                                                        <input type="text" list="chapterlist" class="form-control" placeholder="Video Title.." name="chapter">
+                                                        <datalist id="chapterlist">
+                                                            
+                                                        </datalist>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="add-instructor-label">Video Title</label>
+                                                        <input type="text" class="form-control" placeholder="Video Title.." name="vtitle">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="add-instructor-label">Add Video Link</label>
+                                                        <input type="text" class="form-control" placeholder="Paste Video Link.." name="vlink">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="add-instructor-label">Video Details(Max 150 Characters)</label>
+                                                    <textarea placeholder="Enter Detail of Video in max 150 character.." class="form-control-lg" name="vdetail" id="desc"></textarea>
+                                                    <script>
+                                                        ClassicEditor.create(document.getElementById("desc"))
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label class="add-instructor-label">Video Duration(in Min.)</label>
+                                                    <input type="number" name="vduration" class="form-control" />
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="add-instructor-label">Is Video Paid?</label>
+                                                   <select class="form-control" name="ispaid">
+                                                       <option value="true">Paid</option>
+                                                       <option value="false">Free</option>
+                                                   </select>
+                                                </div>
+                                            </div>
+                                            <div class="widget-btn">
+
+                                                <input type="submit" class="btn btn-black ms-5" value="ADD Video" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-7">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="col-xl-12 col-lg-12 col-md-12">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="settings-widget">
+                <div class="settings-inner-blk p-0">
+                    <div class="sell-course-head comman-space">
+                        <h3>Courses</h3>
+                        <p>Manage your courses and its update like live, draft and insight.</p>
+                    </div>
+                    <div class="comman-space pb-0">
+
+                        <div class="settings-tickets-blk course-instruct-blk table-responsive">
+
+                            <table class="table table-nowrap mb-2" id="myTable">
+                                <thead>
+                                    <tr>
+                                        <th class="col-sm-10">COURSES</th>
+                                        <th>STATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function SelectCourseVideo(x) {
+        var id = x.value
+        $.ajax({
+            url: '/admin/selectcoursevideo',
+            type: 'get',
+            data: { 'id': id },
+            success: function (res) {
+                $("table tbody").empty()
+                $("#chapterlist").empty();
+                var chapter=[]
+                for (var i of res) {
+                    //debugger
+                    if (!chapter.includes(i.chapter)) { 
+                    $("#chapterlist").append(`<option>${i.chapter}</option>`);
+                    chapter.push(i.chapter)
+                }
+                    $("table tbody").append(`
+                        <tr>
+    <td>
+        <div class="sell-table-group d-flex align-items-center">
+            <div class="sell-group-img me-5">
+                <a href="course-details.html">
+                    <iframe width="200" height="110" src="${i.vlink}" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </a>
+            </div>
+            <div class="sell-tabel-info ms-3">
+                <p><a href="course-details.html">${i.vtitle}</a></p>
+                <p>Video  ${i.ispaid}</a></p>
+                <small class="text-secondary">${i.vcourse}</small>
+                <div class="course-info d-flex align-items-center border-bottom-0 pb-0">
+                    <div class="rating-img d-flex align-items-center">
+                        <img src="/Content/assets/img/icon/icon-01.svg" alt>
+                        <p>10+ Lesson</p>
+                    </div>
+                    <div class="course-view d-flex align-items-center">
+                        <img src="/Content/assets/img/icon/timer-start.svg" alt>
+                        <p>${i.vduration}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </td>
+
+    <td><span class="badge info-low">${i.status}</span></td>
+</tr>
+                    `)
+                }
+            },
+            error: function () {
+                alert("Error")
+            }
+        });
+    }
+</script>
+
+
+

@@ -1,0 +1,77 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "InstrutorCategoryManagement";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<div class="header-two-title text-center" data-aos="fade-up">
+    <p class="tagline">Welcome to the Instrutor Management Page</p>
+    <h2>How I Can Help You...?</h2>
+</div>
+
+
+<div class="col-xl-12 col-lg-8 col-md-12">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="settings-widget">
+                <div class="settings-inner-blk p-0">
+                    <div class="comman-space pb-0">
+                        <div class="settings-tickets-blk course-instruct-blk table-responsive">
+
+                            <table class="table table-nowrap mb-0" id="myTable">
+                                <thead>
+                                    <tr>
+                                        <th>SR</th>
+                                        <th>INSTRUTOR NAME</th>
+                                        <th>EMAIL</th>
+                                        <th>PHONE</th>
+                                        <th>GENDER</th>
+                                        <th>ICON</th>
+                                        <th>PROFILE SUMMARY </th>
+                                        <th>ABOUT</th>
+                                        <th>PASSWORD</th>
+                                        <th>HIGHTEST QUALIFICATION</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.Rows.Count > 0)
+                                        {
+                                            int i = 1;
+                                            foreach (System.Data.DataRow row in Model.Rows)
+                                            {
+                                                <tr>
+                                                    <td>@i</td>
+                                                    <td>@row["name"]</td>
+                                                    <td>@row["Email"]</td>
+                                                    <td>@row["phone"]</td>
+                                                    <td>@row["Gender"]</td>
+                                                    <td><img src="~/Content/pic/@row["Profile_pic"]" height="70px" width="70px" /></td>
+                                                    <td>@row["profile_summary"]</td>
+                                                    <td>@row["about_me"]</td>
+                                                    <td>@row["password"]</td>
+                                                    <td>@row["Highest_Qualification"]</td>
+                                                    <td>
+                                                        <a href="/admin/instrutorCategoryManagement?id=@row["Instructor_id"]" onclick="return confirm('Do you really want to delete it?')">  <button class="btn btn-danger fa fa-trash" title="Delete"></button></a>
+                                                        <button class="btn btn-success fa fa-pencil" title="Edit Record"></button>
+                                                    </td>
+                                                </tr>
+                                                { i = i + 1; }
+                                            }
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/assets/js/jquery-3.6.0.min.js"></script>
+

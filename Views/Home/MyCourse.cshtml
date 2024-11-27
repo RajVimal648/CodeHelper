@@ -1,0 +1,204 @@
+﻿@{
+    ViewBag.Title = "MyCourse";
+    Layout = "~/Views/Shared/_GeneralLayoutPage1.cshtml";
+}
+<style>
+    .mnnfd {
+        height: 80px;
+        background: white;
+    }
+</style>
+<div class="container mnnfd"></div>
+<div class="course-student-header">
+    <div class="container">
+        <div class="student-group">
+            <div class="course-group ">
+                <div class="course-group-img d-flex">
+                    <a href=""><img src="~/Content/pic/@ViewBag.d["profile_pic"]" alt class="img-fluid"></a>
+                    <div class="d-flex align-items-center">
+                        <div class="course-name">
+                            <h4><a href="">@ViewBag.d["name"]</a><span>Beginner</span></h4>
+                            <p>Student</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-share ">
+                    <a href="" class="btn btn-primary">Account Settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    if (ViewBag.d != null)
+    {
+
+        <div class="p-5">
+            <h4>My Courses</h4>
+            <div class="col-sm-12 py-2">
+
+                </div>
+            </div>
+
+            <div class="row mx-auto">
+
+                @if (Model != null)
+                {
+                    if (Model.Tables[1].Rows.Count > 0)
+                    {
+                        foreach (var row in Model.Tables[1].Rows)
+                        {
+                            <div class="col-lg-4 col-md-6 d-flex">
+                                <div class="course-box course-design d-flex ">
+                                    <div class="product">
+                                        <div class="product-img">
+                                            <a href="/home/enrolledcourse?course_id=@row["id_course"]">
+                                                <img class="img-fluid" alt src="/content/pic/@row["Course_Thumbnail"]">
+                                            </a>
+                                            @*<span class="web-badges mb-3">@row["category_name"]</span>*@
+                                            <div class="price">
+                                                <h3>₹@row["Course_final_fee"]  <span>₹@row["course_fee"]</span></h3>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <div class="course-group d-flex">
+                                                <div class="course-group-img d-flex">
+                                                    <a href="/home/InstructorProfile?id=@row["Select_Course_Instructor"]"><img src="/content/pic/@row["Profile_pic"]" height="30" width="50" class="img-fluid"></a>
+
+                                                    <div class="course-name">
+                                                        <h6><a href="/home/InstructorProfile?id=@row["Select_Course_Instructor"]">@row["name"]</a><br />Instructor</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3 class="title"><a href="/home/enrolledcourse?course_id=@row["id_course"]">@row["Course_Title"]</a></h3>
+                                            <div class="course-info d-flex align-items-center">
+                                                <div class="rating-img d-flex align-items-center">
+
+                                                    <img src="~/Content/assets/img/icon/icon-1.svg" />
+                                                    @*<p>@row["Totallectures"] + Videos</p>*@
+                                                </div>
+                                                <div class="course-view d-flex align-items-center">
+                                                    <img src="assets/img/icon/icon-02.svg" alt>
+                                                    <p>
+                                                        @*@if (row["totalduration"] > 0)
+                                                            {
+                                                                int dur = Convert.ToInt32(row["totalduration"]);
+                                                                int min = dur % 60;
+                                                                int hr = dur / 60;
+                                                                <span>
+                                                                    @hr hr @min min
+                                                                </span>
+                                                            }*@
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            @{
+                                                if (ViewBag.totalfeeds != null)
+                                                {
+                                                    foreach (var rowa in ViewBag.totalfeeds.Rows)
+                                                    {
+
+
+                                                        <div class="rating">
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <span class="d-inline-block average-rating"><span>5.0</span> (@rowa[0])</span>
+                                                        </div>
+                                                    }
+                                                }
+                                            }
+                                            @*<p>@row["catname"]</p>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        }
+                    }
+                }
+
+
+            </div>
+
+
+    }
+    else
+    {
+        <div class="page-content">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-6 d-flex justify-content-start">
+                    <div class=" d-flex">
+                        <div class="get-certified d-flex align-items-center">
+
+                            <p style="font-size:17px;">
+                                You haven't purchased any course yet.<br />
+                                Contact to Admin, if you need support :
+                            </p>
+                            <div class="get-certified d-flex align-items-center">
+
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn p-2 btn-wish w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Send request
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form method="post">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5 p-2" id="exampleModalLabel">Send Request</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+
+
+                                                    @*@{
+                                                            if (ViewBag.data != null)
+                                                            {
+                                                                foreach (var rowa in ViewBag.data.Rows)
+                                                                {
+
+
+                                                                    <input type="number" value="@rowa["course"]" name="id" readonly class="form-control" /><br />
+                                                                }
+                                                            }
+                                                        }*@
+                                                    <input type="text" value="@ViewBag.d["email"] " name="email" readonly class="form-control" /><br />
+                                                    <input type="datetime" value="@DateTime.Now " name="date" readonly class="form-control" /><br />
+
+                                                    <input type="text" class="form-control" name="msg" required placeholder="Drop Your Request Message" />
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <input type="submit" class="btn btn-black ms-5 p-2" value="Send Request" />
+                                                    @*<button type="button" class="btn btn-primary">Send Request</button>*@
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+    }
+}

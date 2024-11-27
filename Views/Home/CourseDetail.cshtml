@@ -1,0 +1,463 @@
+﻿
+@{
+    ViewBag.Title = "CourseDetail";
+    Layout = "~/Views/Shared/_GeneralLayoutPage1.cshtml";
+}
+<script src="~/Content/assets/js/jquery-3.6.0.min.js"></script>
+<style>
+    .inner-banner {
+        margin-top: 80px;
+        padding: 45px 0;
+        background: url("../img/inner-banner.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+    }
+</style>
+
+<div class="">
+    @if (Model != null)
+    {
+        if (Model.Tables[0].Rows.Count > 0)
+        {
+            foreach (System.Data.DataRow row in Model.Tables[0].Rows)
+            {
+
+                <div class="inner-banner">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="instructor-wrap border-bottom-0">
+                                    <div class="about-instructor align-items-center">
+                                        <div class="abt-instructor-img">
+                                            <a href="/home/InstructorProfile?id=@row["Select_Course_Instructor"]"><img src="~/Content/pic/@row["profile_pic"]" alt="img" class="img-fluid"></a>
+                                        </div>
+                                        <div class="instructor-detail me-3">
+                                            <h5><a href="/home/InstructorProfile?id=@row["Select_Course_Instructor"]">@row["name"]</a></h5>
+                                            <p>UX/UI Designer</p>
+                                        </div>
+                                        @{
+                                            if (ViewBag.totalfeed != null)
+                                            {
+                                                foreach (var rowa in ViewBag.totalfeed.Rows)
+                                                {
+                                        <div class="rating mb-0">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <span class="d-inline-block average-rating"><span>5.0</span> (@rowa[0])</span>
+                                        </div>
+                                                    }
+                                                }
+                                            }
+                                    </div>
+                                    <span class="web-badge mb-3">@row["catname"]</span>
+                                </div>
+                                <h2>@row["course_title"]</h2>
+                                <h2 style="color: #3d3d3d;">@row["course_title"]</h2>
+                                <div class="course-info d-flex align-items-center border-bottom-0 m-0 p-0">
+                                    <div class="cou-info">
+                                        <img src="assets/img/icon/icon-01.svg" alt>
+                                        <p>Videos : @row["Totallectures"]</p>
+                                    </div>
+                                    <div class="cou-info">
+                                        <img src="assets/img/icon/timer-icon.svg" alt>
+                                        <p>
+                                            @if (row["totalduration"] != DBNull.Value)
+                                            {
+                                                int dur = Convert.ToInt32(row["totalduration"]);
+                                                int min = dur % 60;
+                                                int hr = dur / 60;
+                                                <span>
+                                                    @hr hr @min min
+                                                </span>
+                                            }
+                                        </p>
+                                    </div>
+                                    @{
+                                        if (ViewBag.totalstudents != null)
+                                        {
+                                            foreach (var rowa in ViewBag.totalstudents.Rows)
+                                            {
+                                                <div class="cou-info">
+                                                    <img src="assets/img/icon/people.svg" alt>
+                                                    <p>@rowa[0] students enrolled</p>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <section class="page-content course-sec">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8">
+
+                                <div class="card overview-sec">
+                                    <div class="card-body">
+                                        <h5 class="subs-title">Overview</h5>
+                                        <h6>Course Description</h6>
+                                        <p>@Html.Raw(row["Course_Details"])</p>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="card content-sec">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <h5 class="subs-title">Course Content</h5>
+                                            </div>
+                                            <div class="col-sm-6 text-sm-end">
+                                                <h6>
+                                                    @row["totallectures"] Lectures @if (row["totalduration"] != DBNull.Value)
+                                                    {
+                                                        int dur = Convert.ToInt32(row["totalduration"]);
+                                                        int min = dur % 60;
+                                                        int hr = dur / 60;
+                                                        <span>
+                                                            @hr:@min:00
+                                                        </span>
+                                                    }
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        @if (Model.Tables[1].Rows.Count > 0)
+                                        {
+                                            int i = 1;
+                                            foreach (var chap in Model.Tables[1].Rows)
+                                            {
+                                                <div class="course-card">
+                                                    <h6 class="cou-title">
+                                                        <a class="collapsed arrow_chapter" data-bs-toggle="collapse" data-id="@Request.QueryString["course_id"]" name="id" href="#collapse_@i" aria-expanded="false">@chap["chapter"]</a>
+                                                    </h6>
+                                                    <div id="collapse_@i" class="card-collapse collapse ">
+                                                        <img src="~/Content/assets/wait.gif" height="100px" />
+                                                        <ul>
+                                                            <li>Video1</li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                { i = i + 1; }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <h3>Wait...Till Videos are added by Admin</h3>
+                                        }
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="card instructor-sec">
+                                    <div class="card-body">
+                                        <h5 class="subs-title">About the instructor</h5>
+                                        <div class="instructor-wrap">
+                                            <div class="about-instructor">
+                                                <div class="abt-instructor-img">
+                                                    <a href="/home/InstructorProfile?id=@row["Select_Course_Instructor"]"><img src="~/Content/pic/@row["profile_pic"]" alt="img" class="img-fluid"></a>
+                                                </div>
+                                                <div class="instructor-detail">
+                                                    <h5><a href="/home/InstructorProfile?id=@row["Select_Course_Instructor"]">@row["name"]</a></h5>
+                                                    <p>@row["Highest_qualification"]</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="course-info d-flex align-items-center">
+                                            <div class="cou-info">
+                                                <img src="~/content/assets/img/icon/play.svg" alt>
+                                                <p>15+ Courses</p>
+                                            </div>
+                                            <div class="cou-info">
+                                                <img src="~/content/assets/img/icon/icon-01.svg" alt>
+                                                <p>150+ Lesson</p>
+                                            </div>
+                                            <div class="cou-info">
+                                                <img src="~/content/assets/img/icon/icon-02.svg" alt>
+                                                <p>
+                                                    @if (row["totalduration"] != DBNull.Value)
+                                                    {
+                                                        int dur = Convert.ToInt32(row["totalduration"]);
+                                                        int min = dur % 60;
+                                                        int hr = dur / 60;
+                                                        <span>
+                                                            @hr hr @min min
+                                                        </span>
+                                                    }
+                                                </p>
+                                            </div>
+                                            <div class="cou-info">
+                                                <img src="~/content/assets/img/icon/people.svg" alt>
+                                                <p>25,000+ students enrolled</p>
+                                            </div>
+                                        </div>
+                                        <p>@row["email"]</p>
+                                        <p>@row["profile_summary"].</p>
+
+                                    </div>
+                                </div>
+
+                                <h3 class="subs-title">Reviews</h3>
+
+                                <div id="" class="card" style="overflow:scroll; height:400px;">
+                                    <div class="card review-sec">
+                                        @foreach (var item in ViewBag.totaldata.Rows)
+                                        {
+                                            <div class="card-body">
+
+                                                <div class="instructor-wrap">
+                                                    <div class="about-instructor">
+                                                        <div class="abt-instructor-img">
+                                                            <a href="#"></a>
+                                                        </div>
+                                                        <div class="instructor-detail">
+                                                            <h5><a href="instructor-profile.html">@item["fullname"]</a></h5>
+                                                            <p>@item["subject"]</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <p class="rev-info">@item["comment"]</p>
+
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="sidebar-sec">
+
+                                    <div class="video-sec vid-bg">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <img src="~/Content/pic/@row["course_thumbnail"]" alt="img" class="video-thumbnail" data-fancybox>
+                                                <div class="video-details">
+                                                    <div class="course-fee">
+                                                        <h2>₹@row["course_final_fee"]</h2>
+                                                        <p><span>₹@row["course_fee"]</span> 50% off</p>
+                                                    </div>
+                                                    <div class="row gx-2">
+                                                        <div class="col-md-6">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <a href="http://wa.me/+917007237006? text=Hi" class="btn btn-wish w-100"><i class="fa-brands fa-whatsapp fa-beat-fade"></i> Whatsapp Now</a>
+                                                        </div>
+                                                    </div>
+                                                    <a href="/home/invoice?courseid=@Request.QueryString["course_id"]" @*onclick="return confirm('Do you really want to purchase this course. This will charge ₹@row["course_final_fee"]')"*@ onclick="addenroll()" class="btn btn-enroll w-100">Enroll Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="card include-sec">
+                                        <div class="card-body">
+                                            <div class="cat-title">
+                                                <h4>Includes</h4>
+                                            </div>
+                                            <ul>
+                                                <li><img src="~/Content/assets/img/icon/import.svg" class="me-2" alt> 11 hours on-demand video</li>
+                                                <li><img src="~/Content/assets/img/icon/play.svg" class="me-2" alt> 69 downloadable resources</li>
+                                                <li><img src="~/Content/assets/img/icon/key.svg" class="me-2" alt> Full lifetime access</li>
+                                                <li><img src="~/Content/assets/img/icon/mobile.svg" class="me-2" alt> Access on mobile and TV</li>
+                                                <li><img src="~/Content/assets/img/icon/cloud.svg" class="me-2" alt> Assignments</li>
+                                                <li><img src="~/Content/assets/img/icon/teacher.svg" class="me-2" alt> Certificate of Completion</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="card feature-sec">
+                                        <div class="card-body">
+                                            <div class="cat-title">
+                                                <h4>Includes</h4>
+                                            </div>
+                                            <ul>
+                                                <img />
+                                                @{
+                                                    if (ViewBag.totalstudents != null)
+                                                    {
+                                                        foreach (var rowa in ViewBag.totalstudents.Rows)
+                                                        {
+                                                            <li><img src="~/Content/assets/img/icon/users.svg" class="me-2" alt> Enrolled: <span>@rowa[0] students</span></li>
+                                                        }
+                                                    }
+                                                }
+                                                <li>
+                                                    <img src="~/Content/assets/img/icon/timer.svg" class="me-2" alt> Duration: @if (row["totalduration"] != DBNull.Value)
+                                                    {
+                                                        int dur = Convert.ToInt32(row["totalduration"]);
+                                                        int min = dur % 60;
+                                                        int hr = dur / 60;
+                                                        <span>
+                                                            @hr hr @min min
+                                                        </span>
+                                                    }
+                                                </li>
+                                                <li><img src="~/Content/assets/img/icon/chapter.svg" class="me-2" alt> Chapters: <span> @row["totallectures"]</span></li>
+                                                <li><img src="~/Content/assets/img/icon/video.svg" class="me-2" alt> Video:<span> @row["totallectures"]</span></li>
+                                                <li><img src="~/Content/assets/img/icon/chart.svg" class="me-2" alt> Level: <span>Beginner</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="card comment-sec">
+                                        <div class="card-body">
+                                            <h5 class="subs-title">Post A comment</h5>
+                                            <form method="post" action="~/home/feedback">
+                                                <input type="hidden" value="@Request.QueryString["course_id"]" name="id" />
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <input type="email" name="femail" id="femail" class="form-control" placeholder="Email">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject">
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea rows="4" class="form-control" id="comments" name="comments" placeholder="Your Comments"></textarea>
+                                                </div>
+                                                <div class="submit-section">
+                                                    <button type="submit" class="btn btn-primary" onclick="Addfeedback()">Submit</button>
+                                                    @*<input class="btn submit-btn" value="Submit" onclick="Addfeedback()" type="button" />*@
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            }
+        }
+    }
+</div>
+<script src="~/Content/assets/js/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+$(".arrow_chapter").click(function () {
+var chapter=$(this).text().trim()
+//alert($(this).attr("data-id"))
+var courseid = @Request.QueryString["course_id"];
+var ul=$(this).parent().parent().find("div ul");
+var gif=$(this).parent().parent().find("div img");
+$.ajax({
+    url: '/Home/selectvideo',
+    type: 'GET',
+    data: { 'chapter': chapter, 'courseid': courseid },
+    success: function (data) {
+        gif.css("display", "none");
+        ul.empty();
+        i = 1;
+        for (var row of data) {
+            ul.append(`<li onclick=VideoPreview('${row.vlink}',${row.id})>
+    <p><img src="/content/assets/img/icon/play.svg" alt class="me-2">Lecture${i}  ${row.vtitle}</p><br/>
+
+    <div>
+
+        ${row.ispaid ? 'Paid' : '<a data-bs-toggle="modal" data-bs-target="#exampleModal">Preview</a>'}
+        <span>${row.vduration}Min</span>
+    </div>
+</li>`);
+            i = i + 1;
+        }
+    },
+    error: function () {
+        alert('Please try again')
+    }
+})
+})
+
+})
+function VideoPreview(link, id) {
+$("#iframe_video").attr("src", link);
+    }
+
+</script>
+
+<!---->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="width:100%;height:600px">
+                <div style="width: 100%; height: 100%; position: relative;">
+
+                    <iframe id="iframe_video" src="" width="100%" height="100%" frameborder="0" scrolling="no" seamless=""></iframe>
+
+                    <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;">&nbsp;</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function Addfeedback() {
+        var fullname = document.querySelector("#fullname");
+        var femail = document.querySelector("#femail");
+        var subject = document.querySelector("#subject");
+        var comments = document.querySelector("#comments");
+        
+        if (fullname != "" && femail != "" && subject != "" && comments != "")
+       
+        {
+$.ajax({
+    url: '/home/feedback',
+    type: 'post',
+    data: { 'fullname': fullname, 'femail': femail, 'subject': subject, 'comments': comments },
+    success: function (res) {
+
+        alert(res);
+
+    },
+    error: function () {
+        alert("Some Error Occured")
+    }
+});
+}
+else {
+alert("Please Fill Properly")
+};
+}
+
+</script>
+<script>
+    function addenroll() {
+        alert("Note: Contact To admin to enroll this course. This time You Need Admin Help For Your Enrollment")
+    }
+</script>

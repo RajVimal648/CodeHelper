@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "EditCourseCategory";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+
+@{
+    if (ViewBag.CourseCategory != null)
+    {
+        foreach (var data in ViewBag.CourseCategory.Rows)
+        {
+            <section class="page-content course-sec">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+
+                                <div class="widget-set">
+                                    <div class="widget-setcount">
+                                        <ul id="progressbar">
+                                            <li class="progress-active">
+                                                <p><span></span> Add Course Catgory</p>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="widget-content multistep-form">
+                                        <fieldset id="first">
+                                            <div class="add-course-info">
+                                                <div class="add-course-inner-header">
+                                                    <h4>Add Course Catgory</h4>
+                                                </div>
+                                                <form method="post" enctype="multipart/form-data">
+                                                    <div class="add-course-form">
+
+                                                        <div class="form-group">
+                                                            <label class="add-course-label">Category Name</label>
+                                                            <input type="text" class="form-control" value="@data["catname"]" name="cat_name" placeholder="Category Name..">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="add-course-label">Category Icon(Only .png)</label>
+                                                            <input type="file" class="form-control" value="@data["catpic"]" name="cat_pic">
+
+                                                        </div>
+                                                        <div class="widget-btn">
+
+                                                            <input type="submit" class="btn btn-info-light next-btn" value="ADD">
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+
+                                        </fieldset>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+}

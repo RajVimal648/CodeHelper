@@ -1,0 +1,176 @@
+﻿
+@{
+    ViewBag.Title = "CategoryWiseCourse";
+    Layout = "~/Views/Shared/_GeneralLayoutPage1.cshtml";
+}
+
+<style>
+    .course-name {
+        font-weight: 500;
+        font-size: 0px;
+        color: #808080;
+        margin-top: 6px;
+    }
+
+    .price {
+        font-size: 10px;
+    }
+
+        .price h3 {
+            font-size: 19px !important;
+        }
+
+    .web-badges {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        min-width: 19px;
+        background: #ff6600;
+        border-radius: 50px;
+        padding: 6px 10px;
+        font-weight: 500;
+        font-size: 12px;
+        color: #FFF;
+    }
+</style>
+
+        <section class="course-content">
+            <div class="container">
+                <div class="header-two-title text-center" data-aos="fade-up">
+                    <p class="tagline">What’s New</p>
+                    <h2>Featured Courses</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="filter-clear">
+                            <div class="card post-widget ">
+                                <div class="card-body">
+                                    <div class="latest-head">
+                                        <h4 class="card-title"><b>Course Categories</b></h4>
+                                    </div>
+                                    <ul class="latest-posts">
+                                        @if(Model!=null)
+                                        {
+                                            if (Model.Tables[0].Rows.Count>0)
+                                            {
+                                                foreach(var cat in Model.Tables[0].Rows)
+                                                {
+                                        <li>
+                                            <div class="post-thumb">
+                                                <a href="/home/categorywisecourse?catid=@cat["catid"]">
+                                                    <img class="img-fluid" src="/content/pic/@cat["catpic"]">
+                                                </a>
+                                            </div>
+                                            <div class="post-info free-color">
+                                                <h4>
+                                                    <a href="/home/categorywisecourse?catid=@cat["catid"]">@cat["catname"]</a>
+                                                </h4>
+                                                <p>Course @cat["totalcourse"]</p>
+                                            </div>
+                                            <hr />
+                                        </li>
+                                                }
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9">
+
+                        <div class="row">
+
+                            @if (Model != null)
+                            {
+                                if (Model.Tables[1].Rows.Count > 0)
+                                {
+                                    foreach (var row in Model.Tables[1].Rows)
+                                    {
+                                        <div class="col-lg-4 col-md-6 d-flex">
+                                            <div class="course-box course-design d-flex ">
+                                                <div class="product">
+                                                    <div class="product-img">
+                                                        <a href="/home/coursedetail?course_id=@row["id_course"]">
+                                                            <img class="img-fluid" alt src="/content/pic/@row["Course_Thumbnail"]">
+                                                        </a>
+                                                        <span class="web-badges mb-3">@row["catname"]</span>
+                                                        <div class="price">
+                                                            <h3>₹@row["Course_final_fee"]  <span>₹@row["course_fee"]</span></h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-content">
+                                                        <div class="course-group d-flex">
+                                                            <div class="course-group-img d-flex">
+                                                                <a href="/home/InstructorProfile?id=@row["Select_Course_Instructor"]"><img src="/content/pic/@row["Profile_pic"]" height="30" width="50" class="img-fluid"></a>
+
+                                                                <div class="course-name">
+                                                                    <h6><a href="/home/InstructorProfile?id=@row["Select_Course_Instructor"]">@row["name"]</a><br />Instructor</h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <h3 class="title"><a href="/home/coursedetail?course_id=@row["id_course"]">@row["Course_Title"]</a></h3>
+                                                        <div class="course-info d-flex align-items-center">
+                                                            <div class="rating-img d-flex align-items-center">
+
+                                                                <img src="~/Content/assets/img/icon/icon-1.svg" />
+                                                                <p>@row["Totallectures"] + Videos</p>
+                                                            </div>
+                                                            <div class="course-view d-flex align-items-center">
+                                                                <img src="assets/img/icon/icon-02.svg" alt>
+                                                                <p>
+                                                                    @*@if (row["totalduration"] > 0)
+                                                                    {
+                                                                        int dur = Convert.ToInt32(row["totalduration"]);
+                                                                        int min = dur % 60;
+                                                                        int hr = dur / 60;
+                                                                        <span>
+                                                                            @hr hr @min min
+                                                                        </span>
+                                                                    }*@
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        @{
+                                                            if (ViewBag.totalfeeds != null)
+                                                            {
+                                                                foreach (var rowa in ViewBag.totalfeeds.Rows)
+                                                                {
+
+
+                                                                    <div class="rating">
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <i class="fas fa-star filled"></i>
+                                                                        <span class="d-inline-block average-rating"><span>5.0</span> (@rowa[0])</span>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                        }
+                                                        <p>@row["catname"]</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    }
+                                }
+                            }
+
+
+                                    </div>
+
+                        
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+

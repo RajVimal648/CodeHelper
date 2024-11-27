@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "EnrollStudent";
+    Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+
+<style>
+    .page-content {
+        padding: 50px 0 30px;
+        margin-top: 70px !important;
+    }
+
+    .box {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        padding-top: 10px;
+    }
+
+    input:hover {
+        background-color: lightgrey;
+    }
+</style>
+<body>
+
+    <section class="page-content course-sec">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="card">
+
+                        <div class="widget-set">
+
+                            <div class="widget-content multistep-form">
+
+                                <div class="add-instructor-form">
+                                    <div class="row ">
+                                        <div class="col-sm-10 px-5 ">
+                                            <form onsubmit="return check()" id="cform" method="post" enctype="multipart/form-data">
+                                                <center>
+                                                    <div class="add-instructor-inner-header p-3">
+                                                        <h4 class="fw-bold dt-center mt-3 me-3 mb-3" style="color:orangered">REGISTRATION</h4>
+                                                    </div>
+                                                </center>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">NAME</label>
+                                                            <input required type="text" id="name" class="form-control" placeholder="Name" name="Rname">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">PROFILE PICTURE</label>
+                                                            <input required type="file" accept="image/*" class="form-control" name="Rpic">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">  EMAILID </label>
+                                                            <input required type="email" id="email" class="form-control" placeholder="Email" name="REmail">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">PASSWORD</label>
+                                                            <input required type="password" class="form-control" placeholder="......" name="Rpassword">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">  COLLEGE </label>
+                                                            <input required type="text" class="form-control" placeholder="College Name" name="RCollege">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">COURSE</label>
+                                                            <select class="form-control" name="RCOURSE">
+                                                                <option selected disabled>Select Category</option>
+                                                                <option>PHD</option>
+                                                                <option>B.tech</option>
+                                                                <option>M.tech</option>
+                                                                <option>MBA</option>
+                                                                <option>M.COM</option>
+
+
+
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">MOBILE-NUMBER</label>
+                                                            <input required type="number" id="mobno" minlength="10" maxlength="10" class="form-control" placeholder="Mobile...." name="rmobile">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="add-instructor-label">GENDER</label><br />
+                                                            Male<input required type="radio" name="rgender" value="Male">
+                                                            Female<input required type="radio" name="rgender" value="Female">
+                                                            Other<input required type="radio" name="rgender" value="Other">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label class="add-instructor-label">YEAR</label>
+                                                    <select class="form-control" name="ryear">
+                                                        <option selected disabled>Select Category</option>
+                                                        <option>First</option>
+                                                        <option>Second</option>
+                                                        <option>Third</option>
+                                                        <option>Fourth</option>
+                                                        <option>Passed Out</option>
+                                                        <option>Other</option>
+
+                                                    </select>
+                                                </div>
+
+
+
+                                                <center>
+                                                    <input required type="submit" onclick="check()" class="signin-head button mb-4 mt-3" value="Sign up" />
+                                                </center>
+
+
+                                            </form>
+                                        </div>
+                                        <div class="col-sm-7">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
